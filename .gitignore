@@ -84,3 +84,12 @@ docs/_build/
 # sublime text
 *.idea*
 *sublime*
+
+# data files
+Data/
+
+# Logs
+Logs/
+
+# Temporary files
+tmp/
