@@ -85,8 +85,9 @@ docs/_build/
 *.idea*
 *sublime*
 
-# data files
+# data (GWAS and reference) files
 Data/
+Builds/
 
 # Logs
 Logs/
