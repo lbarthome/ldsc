@@ -87,9 +87,13 @@ docs/_build/
 
 # data files
 Data/
+Builds/
 
 # Logs
 Logs/
 
 # Temporary files
 tmp/
+
+# Figures
+Outputs/
