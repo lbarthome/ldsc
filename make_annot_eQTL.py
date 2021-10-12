@@ -77,7 +77,7 @@ if __name__ ==  "__main__":
 
 
     ## -------------- Importing input
-    for chr in range (1,2): #23):
+    for chr in range (1,23):
         chr = str(chr)
         print("Annotating chromosome "+chr+"...\r")
 
