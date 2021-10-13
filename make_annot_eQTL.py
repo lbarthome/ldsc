@@ -12,14 +12,14 @@ import pandas as pd
 import time as time
 
 ## ----------- Functions
-def get_esnps(chr):
+def get_esnps(chr, INPUT_PATH_EQTL):
     """Takes a chromosome chr (just an integer) and returns the corresponding list of 
     eSNPs in a panda datafrane contianing one column of rsID (called SNP) and a column
     of logical value for beeing a siginficant eQTL (all here are !)"""
     INPUT_COLUMNS = [
         "rsID" #, "ref", "alt"
     ]    
-    input_eQTL_filename = os.path.join(INPUT_PATH_eQTL, "chr"+chr+".esnps.txt")
+    input_eQTL_filename = os.path.join(INPUT_PATH_EQTL, "chr"+chr+".esnps.txt")
     esnps = pd.read_csv(input_eQTL_filename , sep="\t")[INPUT_COLUMNS]
     esnps["GTEx_v8_eSNP"] = 1 # logical annotation that these snps are eSNPs
     esnps.rename(columns={
@@ -27,7 +27,7 @@ def get_esnps(chr):
     }, inplace=True)
     return esnps
 
-def get_baseline_annot(chr):
+def get_baseline_annot(chr, INPUT_PATH_BASELINE):
     """Takes a chromosome chr (just an integer) and returns the corresponding list of 
     SNPs annotated in ldsc baseline model in a panda datafrane containing columns to
     identify the SNP (chr, bp, snp, cm) and then one column per category with logical 
@@ -59,7 +59,7 @@ def build_new_annot(esnps, baseline_annot):
 
 if __name__ ==  "__main__":
     # if the scrits is executed (python, ipython), __name__ == main
-    # if the scripts is imported it has module name
+    # if the scripts is imported it has module name, only import functions
     startTime = time.time()
 
     ## --------------- Getting input file and output file PATHs
@@ -71,7 +71,7 @@ if __name__ ==  "__main__":
     #     sys.exit(1)
 
     PATH = os.path.dirname(__file__)
-    INPUT_PATH_eQTL= os.path.join(PATH, "Data/eQTL") # to input folder
+    INPUT_PATH_EQTL= os.path.join(PATH, "Data/eQTL") # to input folder
     INPUT_PATH_BASELINE = os.path.join(PATH, "Builds/baseline")
     OUTPUT_PATH = os.path.join(PATH, "Builds/baseline_eQTL/")
 
@@ -82,10 +82,10 @@ if __name__ ==  "__main__":
         print("Annotating chromosome "+chr+"...\r")
 
         # Import esnps
-        esnps = get_esnps(chr)
+        esnps = get_esnps(chr, INPUT_PATH_EQTL)
         
         # Import baseline model
-        baseline_annot = get_baseline_annot(chr)
+        baseline_annot = get_baseline_annot(chr, INPUT_PATH_BASELINE)
 
         # Build new annotations
         new_annot = build_new_annot(esnps, baseline_annot)
